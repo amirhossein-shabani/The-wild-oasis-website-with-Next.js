@@ -1,14 +1,21 @@
 import { Suspense } from "react";
 import CabinList from "@/app/_components/CabinList";
 import Spinner from "../_components/Spinner";
+import Filter from "@/app/_components/Filter";
+import ReservationReminder from "../_components/ReservationReminder";
 
+// This revalidate don't work any more becuase thhe searchParams in the Page make this component to dynamic rendering  :
 export const revalidate = 3600; // 1 hour
 
 export const metadata = {
   title: "Cabins",
 };
 
-export default function Page() {
+//this searchParams only work on page just like this which is a page.js file(server component)
+
+export default function Page({ searchParams }) {
+  const filter = searchParams?.capacity ?? "all";
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -23,8 +30,14 @@ export default function Page() {
         Welcome to paradise.
       </p>
 
-      <Suspense fallback={<Spinner />}>
-        <CabinList />
+      <div className="flex justify-end mb-8">
+        <Filter />
+      </div>
+
+      {/*We use the key for the Suspense because without it, the fallback doesn't work during navigation transitions. */}
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );

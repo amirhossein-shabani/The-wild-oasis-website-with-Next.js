@@ -7,6 +7,7 @@ const josefin = Josefin_Sans({
 });
 
 import "@/app/_styles/globals.css";
+import { ReservationProvider } from "./_components/ReservationContext";
 
 export const metadata = {
   // title: "The Wild Oasis",
@@ -36,7 +37,10 @@ export default function RootLayout({ children }) {
       >
         <Header />
         <div className="flex-1 px-8 py-12 grid">
-          <main className="max-w-7xl mx-auto w-full">{children}</main>
+          <main className="max-w-7xl mx-auto  w-full">
+            {/* the children are the server components and we can use them as children in ReservationProvider which the client component becuase this childrens rendered in initial rendering and after that pass as children prop to ReservationProvider and all the client components can use this ReservationProvider (context api ) component*/}
+            <ReservationProvider>{children}</ReservationProvider>
+          </main>
         </div>
       </body>
     </html>
