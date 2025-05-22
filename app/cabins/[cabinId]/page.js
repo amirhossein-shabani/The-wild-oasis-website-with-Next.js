@@ -2,7 +2,6 @@ import Cabin from "@/app/_components/Cabin";
 import Reservation from "@/app/_components/Reservation";
 import Spinner from "@/app/_components/Spinner";
 import { getCabin, getCabins } from "@/app/_lib/data-service";
-import { GET } from "@/app/api/cabins/[cabinId]/route";
 import { Suspense } from "react";
 
 // generate metadata dynamiclly by generateMedadata() function :
@@ -32,8 +31,6 @@ export default async function Page({ params }) {
   const cabin = await getCabin(params.cabinId);
   // const { cabinId } = params;
   // const { cabin, bookedDates } = await getCabinData(cabinId);
-
-  console.log(cabin, bookedDates);
 
   return (
     <div className="max-w-6xl mx-auto mt-8">

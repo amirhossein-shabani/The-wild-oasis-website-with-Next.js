@@ -26,12 +26,32 @@ function DateSelector({ settings, bookedDates, cabin }) {
   // SETTINGS
   const { minBookingLength, maxBookingLength } = settings;
 
+  function handleRangeSelect(range) {
+    if (!range) {
+      setRange({ from: undefined, to: undefined });
+      return;
+    }
+    if (range?.from && !range?.to) {
+      setRange(range);
+      return;
+    }
+    if (
+      range?.from &&
+      range?.to &&
+      range.from.getTime() === range.to.getTime()
+    ) {
+      setRange({ from: range.from, to: range.from });
+      return;
+    }
+    setRange(range);
+  }
+
   return (
     <div className="flex flex-col justify-between ">
       <DayPicker
         className="rdp pt-10 place-self-center "
         mode="range"
-        onSelect={setRange}
+        onSelect={handleRangeSelect}
         selected={range}
         min={minBookingLength + 1}
         max={maxBookingLength}

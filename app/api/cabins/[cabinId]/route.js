@@ -1,4 +1,5 @@
 // create api endpoint with Route Handlers for ourself .
+// api endpoint in outsite in this ex : http://localhost:3000/api/cabins/${cabinId}
 
 import { getBookedDatesByCabinId, getCabin } from "@/app/_lib/data-service";
 

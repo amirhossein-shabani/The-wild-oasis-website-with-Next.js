@@ -36,6 +36,7 @@
   --rdp-cell-size: 32px !important;
   --rdp-accent-color: theme("colors.accent.500") !important;
   --rdp-background-color: theme("colors.accent.600") !important;
+  --rdp-range_middle-background-color: theme("colors.accent.900") !important;
   margin: 0 !important;
 }
 .rdp-months {
@@ -46,6 +47,17 @@
 .rdp-month_caption {
   display: flex !important;
   justify-content: center !important;
+}
+.rdp-month_caption select {
+  background-color: rgb(20 28 36) !important;
+  padding: 5px 5px !important;
+}
+.rdp-month_caption select option:disabled {
+  color: rgb(38, 53, 68) !important;
+}
+.rdp-month_caption select option {
+  color: rgb(100, 137, 177) !important;
+  padding: 2px !important;
 }
 
 .rdp-nav {
