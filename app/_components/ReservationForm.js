@@ -8,8 +8,8 @@ function ReservationForm({ cabin, user }) {
   const { maxCapacity } = cabin;
 
   return (
-    <div className="scale-[1.01] flex-1">
-      <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-between items-center">
+    <div className="scale-[1.0] flex-1">
+      <div className="bg-primary-800 text-primary-300 px-16 py-5 flex justify-between items-center">
         <p>Logged in as</p>
 
         <div className="flex gap-4 items-center">
