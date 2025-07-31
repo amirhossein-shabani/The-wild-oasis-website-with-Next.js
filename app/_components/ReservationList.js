@@ -3,7 +3,7 @@
 import { useOptimistic } from "react";
 
 import ReservationCard from "./ReservationCard";
-import { deleteReservation } from "../_lib/action";
+import { deleteBooking } from "../_lib/action";
 
 function ReservationList({ bookings }) {
   // Optimistic Ui with useOptimistic hook =
@@ -16,7 +16,7 @@ function ReservationList({ bookings }) {
 
   async function handleDelete(bookingId) {
     OptimisticDelete(bookingId);
-    await deleteReservation(bookingId);
+    await deleteBooking(bookingId);
   }
 
   return (

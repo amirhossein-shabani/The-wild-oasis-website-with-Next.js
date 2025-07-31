@@ -30,14 +30,49 @@ export async function updateGuest(formData) {
   revalidatePath("/account/profile");
 }
 
-//ACTION FOR DELETE RESERVATION'S
-export async function deleteReservation(bookingId) {
-  await new Promise((res) => setTimeout(res, 2000));
+//ACTION FOR CREATE BOOKING =
 
-  // With this error, we can test the useOptimistic hook.
-  // If the action throws an error after 2 seconds, will the element return to the UI?
-  // throw new Error();
+export async function createBooking(bookingData, formData) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in ⛔");
 
+  /*
+  const data =  Object.entries(formData.entries())
+
+  we use this order to evoide to use ".get" for getting the propertie's of huge formData and after this code we correctly use (for example )=
+
+  ... data.numGuests ;
+  */
+
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+    extrasPrice: 0,
+    totalPrice: bookingData.cabinPrice,
+    isPaid: false,
+    hasBreakfast: false,
+    status: "unconfirmed",
+  };
+  // Adding the hasBreakfast input:
+  // I can later add an input field to the form for the hasBreakfast option as a challenge to practice form handling.
+
+  //  Validating bookingDate in Supabase:
+  // I can add validation logic in Supabase to check if there is already a reservation for the selected dates before allowing the booking to be saved.
+
+  const { error } = await supabase.from("bookings").insert([newBooking]);
+
+  if (error) throw new Error("Booking could not be created");
+
+  revalidatePath(`/cabins/${bookingData.cabinId}`);
+
+  redirect("/cabins/thankyou");
+}
+
+//ACTION FOR DELETE BOOKING =
+
+export async function deleteBooking(bookingId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in ⛔");
 
@@ -56,6 +91,7 @@ export async function deleteReservation(bookingId) {
 
   revalidatePath("/account/reservations");
 }
+
 //ACTION FOR UPDATE BOOKING
 export async function updateBooking(formData) {
   const bookingId = Number(formData.get("bookingId"));
