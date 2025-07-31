@@ -170,17 +170,17 @@ export async function createGuest(newGuest) {
 
 /*
 export async function createBooking(newBooking) {
-  const { data, error } = await supabase
-    .from("bookings")
-    .insert([newBooking])
-    // So that the newly created object gets returned!
-    .select()
-    .single();
+    const { data, error } = await supabase
+      .from("bookings")
+      .insert([newBooking])
+      // So that the newly created object gets returned!
+      .select()
+      .single();
 
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be created");
-  }
+    if (error) {
+      console.error(error);
+      throw new Error("Booking could not be created");
+    }
 
   return data;
 }

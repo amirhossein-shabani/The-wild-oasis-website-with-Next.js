@@ -12,7 +12,14 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { bookingId } = params;
-  const { numGuests, observations, cabinId } = await getBooking(bookingId);
+  const {
+    numGuests,
+    observations,
+    cabinId,
+    hasBreakfast,
+    cabinPrice,
+    numNights,
+  } = await getBooking(bookingId);
   const { maxCapacity } = await getCabin(cabinId);
 
   return (
@@ -26,6 +33,8 @@ export default async function Page({ params }) {
         className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
       >
         <input type="hidden" value={bookingId} name="bookingId" />
+        <input type="hidden" value={cabinPrice} name="cabinPrice" />
+        <input type="hidden" value={numNights} name="numNights" />
 
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
@@ -55,6 +64,24 @@ export default async function Page({ params }) {
             name="observations"
             defaultValue={observations}
             className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="pr-5" htmlFor="hasBreakfast">
+            Do you want breakfast?
+          </label>
+          <input
+            type="checkbox"
+            name="hasBreakfast"
+            defaultChecked={hasBreakfast}
+            className="
+              h-5 w-5 appearance-none rounded-full border-2
+              border-primary-400 bg-primary-800 transition-all
+              checked:border-accent-500 checked:bg-accent-500
+              checked:ring-1 checked:ring-accent-200
+              focus:ring-2 focus:ring-accent-300
+              cursor-pointer
+            "
           />
         </div>
 
